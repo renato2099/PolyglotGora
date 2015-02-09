@@ -1,5 +1,5 @@
 import sys 
-sys.path.append('/Users/renatomarroquin/Downloads/GoraJython.jar')
+sys.path.append('/Users/renatomarroquin/Downloads/PolyglotGora.jar')
 from org.apache.gora.jython.binding import SimpleBinding
 from org.apache.gora.utils import GeneratedUtils
 

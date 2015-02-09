@@ -7,10 +7,27 @@ import org.apache.gora.util.GoraException;
 import org.apache.gora.utils.GeneratedUtils;
 import org.apache.gora.utils.GoraUtils;
 
+/**
+ * Main entry point for data stores.
+ *
+ * @param <K>
+ * @param <T>
+ */
 public class SimpleBinding<K, T extends Persistent> {
 
+  /**
+   * Data store
+   */
   private final DataStore<K, T> datastore;
 
+  /**
+   * Entry point for data stores usage.
+   * @param type
+   * @param keyClass
+   * @param valClass
+   * @throws ClassNotFoundException
+   * @throws GoraException
+   */
   @SuppressWarnings("unchecked")
   public SimpleBinding(String type, String keyClass, String valClass)
       throws ClassNotFoundException, GoraException {
