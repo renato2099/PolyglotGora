@@ -48,13 +48,24 @@ public class GoraUtils {
       throws GoraException {
     DataStore<K, T> dataStore = DataStoreFactory.createDataStore(
         dataStoreClass, keyClass, persistentClass, new Configuration());
-
     return dataStore;
   }
 
+  /**
+   * Gets a specific datastore
+   * @param datastoreType
+   * @return
+   */
   private static Class<? extends DataStore> getSpecificDataStore(
-      String datastoreType) {
-    return getSpecificDataStore(datastoreType);
+     String datastoreType) {
+	 Type nType = null;
+	 try{
+	   nType = Type.valueOf(datastoreType.toUpperCase());  
+	 } catch (IllegalArgumentException e) {
+       System.err.println("Datastore not supported.");
+       e.printStackTrace();
+	 }
+    return getSpecificDataStore(nType);
   }
 
   /**

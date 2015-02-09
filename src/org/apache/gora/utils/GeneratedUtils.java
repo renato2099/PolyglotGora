@@ -1,49 +1,49 @@
 package org.apache.gora.utils;
 
-//import org.apache.gora.examples.generated.old.Edge;
-//import org.apache.gora.examples.generated.old.Simpson;
-//import org.apache.gora.examples.generated.old.Vertex;
+import org.apache.avro.util.Utf8;
+import org.apache.gora.examples.generated.Employee;
+import org.apache.gora.store.DataStore;
+import org.apache.gora.util.GoraException;
 
 /**
  * Class used to create necessary objects to be tested.
- * @author renatomarroquin
- *
  */
 public class GeneratedUtils {
 
-  /**
-   * Generates a couple of vertices attached one to another.
-   * @return Map containing vertices.
-   
-  public static Map<String, Vertex> getVertices() {
-    // Creating vertices
-    Vertex vrtx1, vrtx2;
-    vrtx1 = new Vertex();
-    vrtx2 = new Vertex();
-    Map<String, Vertex> graph = new HashMap<String, Vertex>();
-    
-    // Setting ids.
-    vrtx1.setVertexId(new Utf8("A"));
-    vrtx1.setValue(1f);
-    Edge edg1 = new Edge();
-    edg1.setEdgeVertexId(new Utf8("B"));
-    vrtx1.addToEdges(edg1);
-    
-    vrtx2.setVertexId(new Utf8("B"));
-    vrtx2.setValue(1f);
-    Edge edg2 = new Edge();
-    edg2.setEdgeVertexId(new Utf8("A"));
-    vrtx2.addToEdges(edg2);
-    
-    graph.put("A", vrtx1);
-    graph.put("B", vrtx2);
-    return graph;
-  }*/
+  public static Employee createEmployee(String sSsn, String sName, Integer iSal) {
+    Employee emp1 = Employee.newBuilder().build();
+    emp1.setSsn(sSsn);
+    emp1.setName(new Utf8(sName));
+    emp1.setSalary(iSal);
+    return emp1;
+  }
 
-  /*public static Simpson createSimpson(String pKey) {
-    Simpson familyMmbr = new Simpson();
-    familyMmbr.setFirstname(new Utf8(pKey));
-    familyMmbr.setLastname(new Utf8("Simpson"));
-    return familyMmbr;
-  }*/
+  public static String pPrint(Employee emp) {
+    StringBuilder sb = new StringBuilder();
+    if (emp != null) {
+      sb.append("SSN: ").append(emp.getSsn());
+      sb.append(" NAME: ").append(emp.getName());
+      sb.append(" SALARY: ").append(emp.getSalary());
+    }
+    else
+      sb.append("NULL");
+    return sb.toString();
+  }
+
+  public static void main(String[] args) {
+    try {
+      DataStore<String, Employee> ds = GoraUtils.createSpecificDataStore(
+          "cassandra", String.class, Employee.class);
+      Employee old_emp = createEmployee("43024255", "Renato", 100);
+      ds.put(old_emp.getSsn().toString(), old_emp);
+      ds.flush();
+      System.out.println(pPrint(old_emp));
+      Employee emp = ds.get("43024255");
+      System.out.println(pPrint(emp));
+      ds.close();
+    } catch (GoraException e) {
+      System.err.println("Something went wrong.");
+      e.printStackTrace();
+    }
+  }
 }
