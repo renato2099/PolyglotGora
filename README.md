@@ -5,14 +5,14 @@ Clojure
 
 To run the clojure example add the exported jar (PolyglotGora.jar in the repo or exported yourself)  to your classpath. Then execute a command similar to:
 
-java -cp clojure-1.6.0.jar:PolyglotGora.jar clojure.main ../../../workspace/workspaceGoraBranches/GoraJython/src/org/apache/gora/clojure/gorai\_clj.clj
+java -cp clojure-1.6.0.jar:PolyglotGora.jar clojure.main {$PROJECT\_DIRECTORY}/src/org/apache/gora/clojure/gorai\_clj.clj
 
 Jython
 ------
 
 To run the clojure example add the exported jar (PolyglotGora.jar in the repo or exported yourself)  to your classpath. Then execute a command similar to:
 
-java -jar jython.jar ../../workspace/workspaceGoraBranches/GoraJython/src/org/apache/gora/jython/gora\_jython.py 
+java -jar jython.jar {$PROJECT\_DIRECTORY}/src/org/apache/gora/jython/gora\_jython.py 
 
 Py4j
 ----
